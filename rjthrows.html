@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RJ Throws | Discus Coaching</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #5BB8F5;
+    --blue-dark: #1A7DC4;
+    --blue-light: #E6F4FD;
+    --blue-mid: #3AA0E8;
+    --ink: #0D0D0F;
+    --ink-mid: #2C2C2E;
+    --ink-soft: #6B6B70;
+    --surface: #F4F9FE;
+    --white: #ffffff;
+    --border: rgba(91,184,245,0.18);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 64px;
+    border-bottom: 1px solid rgba(91,184,245,0.15);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 2px; color: var(--white);
+  }
+  .nav-logo span { color: var(--blue); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.6); text-decoration: none;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-cta {
+    background: var(--blue) !important; color: var(--ink) !important;
+    padding: 8px 20px; border-radius: 4px; font-weight: 700 !important;
+  }
+  .nav-cta:hover { background: var(--blue-mid) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--ink);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 100px 2.5rem 4rem;
+  }
+  .hero-bg-circle {
+    position: absolute; right: -140px; top: 50%;
+    transform: translateY(-50%);
+    width: 720px; height: 720px;
+    border-radius: 50%;
+    border: 90px solid rgba(91,184,245,0.07);
+    pointer-events: none;
+  }
+  .hero-bg-circle2 {
+    position: absolute; right: 60px; top: 50%;
+    transform: translateY(-50%);
+    width: 460px; height: 460px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(91,184,245,0.2);
+    pointer-events: none;
+  }
+  .hero-bg-circle3 {
+    position: absolute; right: 160px; top: 50%;
+    transform: translateY(-50%);
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    border: 1px solid rgba(91,184,245,0.12);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 960px; margin: 0 auto; width: 100%; }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(91,184,245,0.15);
+    color: var(--blue);
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; padding: 6px 14px; border-radius: 2px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(91,184,245,0.25);
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 10vw, 120px);
+    line-height: 0.9; color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .accent { color: var(--blue); display: block; }
+  .hero-sub {
+    font-size: 18px; color: rgba(255,255,255,0.55);
+    max-width: 520px; line-height: 1.7; margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--blue); color: var(--ink);
+    padding: 14px 32px; border-radius: 4px;
+    text-decoration: none; font-weight: 700; font-size: 15px;
+    transition: background 0.2s, transform 0.1s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--blue-mid); transform: translateY(-1px); }
+  .btn-secondary {
+    border: 1.5px solid rgba(91,184,245,0.35); color: var(--blue);
+    padding: 14px 32px; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 15px;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--blue); background: rgba(91,184,245,0.08); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px; color: var(--blue); line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* STRIP */
+  .about-strip {
+    background: var(--blue);
+    padding: 1.4rem 2rem;
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 3px; color: var(--ink);
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 2.5rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--blue-dark);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 6vw, 64px);
+    line-height: 1; margin-bottom: 1rem; color: var(--ink);
+  }
+  .section-sub {
+    font-size: 17px; color: var(--ink-soft);
+    max-width: 540px; line-height: 1.6;
+  }
+
+  /* ABOUT */
+  .about { background: var(--white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem;
+  }
+  .about-img-box {
+    aspect-ratio: 3/4;
+    background: var(--ink);
+    border-radius: 8px;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid rgba(91,184,245,0.2);
+  }
+  .about-img-placeholder {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px; color: rgba(91,184,245,0.1); letter-spacing: 4px;
+  }
+  .about-img-tip {
+    position: absolute; top: 1rem; right: 1rem;
+    background: rgba(91,184,245,0.15); border: 1px solid rgba(91,184,245,0.3);
+    color: var(--blue); font-size: 11px; padding: 4px 10px; border-radius: 3px;
+    font-weight: 600;
+  }
+  .about-img-label {
+    position: absolute; bottom: 1.5rem; left: 1.5rem;
+    background: var(--blue); color: var(--ink);
+    padding: 6px 14px; border-radius: 3px;
+    font-weight: 700; font-size: 13px;
+  }
+  .about-content p {
+    font-size: 16px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 1.25rem;
+  }
+  .about-highlights { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .highlight-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface); border-radius: 6px;
+    border-left: 3px solid var(--blue);
+  }
+  .highlight-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--blue-light);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue-dark); font-size: 18px; flex-shrink: 0;
+  }
+  .highlight-text strong { display: block; font-size: 14px; font-weight: 600; color: var(--ink); }
+  .highlight-text span { font-size: 13px; color: var(--ink-soft); }
+
+  /* SERVICES */
+  .services { background: var(--surface); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .service-card {
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid rgba(91,184,245,0.15);
+    padding: 2rem 1.5rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(91,184,245,0.12); }
+  .service-card.featured {
+    border: 2px solid var(--blue);
+    background: var(--ink);
+  }
+  .service-badge {
+    display: inline-block;
+    background: var(--blue); color: var(--ink);
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 2px;
+    margin-bottom: 1.25rem;
+  }
+  .service-icon { font-size: 36px; margin-bottom: 1rem; display: block; }
+  .service-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px; letter-spacing: 1px; margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  .service-card.featured h3 { color: var(--white); }
+  .service-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 1.5rem; }
+  .service-card.featured p { color: rgba(255,255,255,0.55); }
+  .service-features { list-style: none; margin-bottom: 1.75rem; }
+  .service-features li {
+    font-size: 13px; color: var(--ink-mid); padding: 5px 0;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .service-card.featured .service-features li { color: rgba(255,255,255,0.7); }
+  .service-features li::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--blue); flex-shrink: 0;
+  }
+  .service-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px; color: var(--blue); line-height: 1;
+  }
+  .service-price span { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink-soft); }
+  .service-card.featured .service-price span { color: rgba(255,255,255,0.45); }
+  .service-link {
+    display: block; text-align: center;
+    margin-top: 1.5rem; padding: 11px;
+    border-radius: 4px; font-weight: 600; font-size: 14px;
+    text-decoration: none; transition: background 0.2s;
+    background: var(--blue-light); color: var(--blue-dark);
+  }
+  .service-card.featured .service-link {
+    background: var(--blue); color: var(--ink);
+  }
+  .service-link:hover { opacity: 0.85; }
+
+  /* HOW IT WORKS */
+  .how { background: var(--ink); }
+  .how .section-tag { color: var(--blue); }
+  .how .section-title { color: var(--white); }
+  .how .section-sub { color: rgba(255,255,255,0.45); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3.5rem; position: relative; }
+  .steps::before {
+    content: ''; position: absolute;
+    top: 28px; left: 12.5%; right: 12.5%;
+    height: 1px; background: rgba(91,184,245,0.15);
+  }
+  .step { text-align: center; }
+  .step-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--blue); color: var(--ink);
+    font-family: 'Bebas Neue', sans-serif; font-size: 24px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem;
+  }
+  .step h4 { font-weight: 600; font-size: 15px; margin-bottom: 0.5rem; color: var(--white); }
+  .step p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--white); }
+  .testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .testi-card {
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid rgba(91,184,245,0.15);
+    padding: 2rem 1.75rem;
+  }
+  .testi-stars { color: var(--blue); font-size: 18px; margin-bottom: 1rem; letter-spacing: 2px; }
+  .testi-card blockquote {
+    font-size: 15px; color: var(--ink-mid);
+    line-height: 1.7; font-style: italic; margin-bottom: 1.25rem;
+    border-left: 3px solid var(--blue); padding-left: 1rem;
+  }
+  .testi-author strong { font-size: 14px; font-weight: 600; display: block; color: var(--ink); }
+  .testi-author span { font-size: 12px; color: var(--ink-soft); }
+
+  /* CTA */
+  .cta-section {
+    background: var(--ink);
+    padding: 7rem 2.5rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px; border-radius: 50%;
+    border: 80px solid rgba(91,184,245,0.06);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 7vw, 80px); color: var(--white);
+    line-height: 1; margin-bottom: 1rem; position: relative;
+  }
+  .cta-section h2 span { color: var(--blue); }
+  .cta-section p { font-size: 18px; color: rgba(255,255,255,0.5); margin-bottom: 2.5rem; position: relative; }
+  .btn-blue {
+    background: var(--blue); color: var(--ink);
+    padding: 16px 40px; border-radius: 4px;
+    text-decoration: none; font-weight: 700; font-size: 16px;
+    display: inline-block; transition: transform 0.1s, background 0.2s;
+    position: relative;
+  }
+  .btn-blue:hover { transform: translateY(-2px); background: var(--blue-mid); }
+
+  /* CONTACT */
+  .contact { background: var(--surface); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; margin-top: 3rem; }
+  .contact-info p { font-size: 16px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 2rem; }
+  .contact-detail {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.25rem; font-size: 14px; color: var(--ink-mid);
+  }
+  .contact-detail-icon {
+    width: 42px; height: 42px; border-radius: 6px;
+    background: var(--blue-light);
+    border: 1px solid rgba(91,184,245,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .contact-detail strong { display: block; font-size: 14px; font-weight: 600; color: var(--ink); }
+  .contact-detail span { font-size: 13px; color: var(--ink-soft); }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label {
+    font-size: 11px; font-weight: 600; color: var(--ink-soft);
+    letter-spacing: 0.8px; text-transform: uppercase;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 12px 14px; border-radius: 5px;
+    border: 1px solid rgba(91,184,245,0.2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--ink); background: var(--white);
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(91,184,245,0.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-submit {
+    background: var(--blue); color: var(--ink);
+    border: none; padding: 14px 28px; border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700; font-size: 15px; cursor: pointer;
+    transition: background 0.2s; align-self: flex-start;
+  }
+  .form-submit:hover { background: var(--blue-mid); }
+
+  /* FOOTER */
+  footer {
+    background: #080809; color: rgba(255,255,255,0.35);
+    padding: 2rem; text-align: center; font-size: 13px;
+    border-top: 1px solid rgba(91,184,245,0.1);
+  }
+  footer strong { color: var(--blue); }
+
+  @media (max-width: 768px) {
+    .about-grid, .contact-grid, .services-grid, .testi-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .steps::before { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    nav { padding: 0 1.25rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 4rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">RJ <span>Throws</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#how">Process</a>
+    <a href="#contact" class="nav-cta">Book Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle2"></div>
+  <div class="hero-bg-circle3"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">🎯 Discus Coaching &nbsp;·&nbsp; High School Athletes</div>
+    <h1>
+      Train Like
+      <span class="accent">You Mean It.</span>
+    </h1>
+    <p class="hero-sub">Elite discus coaching from RJ Mercado — built for high school athletes ready to compete, sharpen their technique, and throw farther than ever.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">View Coaching Options</a>
+      <a href="#contact" class="btn-secondary">Book a Free Call</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">1:1</div>
+        <div class="stat-label">Private Sessions</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Service Options</div>
+      </div>
+      <div>
+        <div class="stat-num">HS</div>
+        <div class="stat-label">Focused Coaching</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="about-strip">📍 Specialized Discus Coaching &nbsp;·&nbsp; High School Competitors &nbsp;·&nbsp; Online &amp; In-Person</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <span class="section-tag">Your Coach</span>
+    <h2 class="section-title">Meet RJ Mercado</h2>
+    <div class="about-grid">
+      <div class="about-img-box">
+        <div class="about-img-placeholder">RJ</div>
+        <div class="about-img-tip">Head Coach</div>
+        <div class="about-img-label">RJ Mercado · RJ Throws</div>
+      </div>
+      <div class="about-content">
+        <p>I'm RJ Mercado — discus coach and founder of <strong>RJ Throws</strong>. I work with high school athletes who are serious about improving — whether that's cleaning up technique, building power, or competing at the next level.</p>
+        <p>Every athlete I work with gets a plan built around <em>their</em> mechanics, <em>their</em> schedule, and <em>their</em> goals. No cookie-cutter advice. No wasted sessions.</p>
+        <p>If you're ready to put in the work, I'm ready to help you get there.</p>
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <div class="highlight-icon">🎯</div>
+            <div class="highlight-text">
+              <strong>Technique-First Coaching</strong>
+              <span>Every session starts with breaking down your form and fixing the fundamentals.</span>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">📱</div>
+            <div class="highlight-text">
+              <strong>Flexible Options</strong>
+              <span>In-person sessions, online video analysis, and custom training plans — pick what fits.</span>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">🏆</div>
+            <div class="highlight-text">
+              <strong>Built for High Schoolers</strong>
+              <span>I understand the HS season, recruiting pressures, and what coaches look for in athletes.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <span class="section-tag">What I Offer</span>
+    <h2 class="section-title">Coaching Services</h2>
+    <p class="section-sub">Three ways to work with me — pick what fits your goals, schedule, and budget.</p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <span class="service-icon">📹</span>
+        <h3>Video Analysis</h3>
+        <p>Send your throw footage and get a detailed breakdown of your mechanics, timing, and release with specific drill recommendations.</p>
+        <ul class="service-features">
+          <li>Full throw breakdown (frame by frame)</li>
+          <li>Written + video feedback</li>
+          <li>Drill prescription included</li>
+          <li>48-hour turnaround</li>
+        </ul>
+        <div class="service-price">$49 <span>/ video</span></div>
+        <a href="#contact" class="service-link">Submit a Video →</a>
+      </div>
+
+      <div class="service-card featured">
+        <span class="service-badge">⭐ Most Popular</span>
+        <span class="service-icon">🧑‍🏫</span>
+        <h3>1-on-1 Coaching</h3>
+        <p>Live sessions with me — in-person or virtual. We work on your technique, mental game, and competition prep together in real time.</p>
+        <ul class="service-features">
+          <li>60-minute private sessions</li>
+          <li>Real-time feedback &amp; correction</li>
+          <li>Custom drill assignments</li>
+          <li>Session notes emailed after</li>
+        </ul>
+        <div class="service-price">$75 <span>/ session</span></div>
+        <a href="#contact" class="service-link">Book a Session →</a>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">📋</span>
+        <h3>Training Programs</h3>
+        <p>A complete periodized plan built around your event schedule — strength, technique, and throw volume mapped out week by week.</p>
+        <ul class="service-features">
+          <li>8 or 12-week programs</li>
+          <li>Customized to your schedule</li>
+          <li>Strength &amp; power work included</li>
+          <li>Check-in support throughout</li>
+        </ul>
+        <div class="service-price">$120 <span>/ program</span></div>
+        <a href="#contact" class="service-link">Get My Program →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="container">
+    <span class="section-tag">Simple Process</span>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">Getting started is easy. Here's what to expect from Day 1.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Reach Out</h4>
+        <p>Fill out the contact form below with your goals and current level.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Free Intro Call</h4>
+        <p>We hop on a quick call so I can understand where you're at and what you need.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Pick a Plan</h4>
+        <p>Choose the service that fits best — 1-on-1, video analysis, or a full program.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Start Throwing</h4>
+        <p>We get to work. Real feedback, real progress, a coach in your corner every step.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <span class="section-tag">What Athletes Say</span>
+    <h2 class="section-title">Results Speak</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"Before working with RJ I had no idea what I was doing wrong. After two sessions my release point completely changed and my PR went up by 8 feet."</blockquote>
+        <div class="testi-author">
+          <strong>Marcus T.</strong>
+          <span>High School Junior · Track &amp; Field</span>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"The video analysis was honestly better than I expected. More specific feedback than I've ever gotten from my school coach. Huge help for competition prep."</blockquote>
+        <div class="testi-author">
+          <strong>Aaliyah K.</strong>
+          <span>High School Senior · State Qualifier</span>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"The 12-week program RJ built lined up perfectly with my season. I felt so much more prepared and confident going into every meet."</blockquote>
+        <div class="testi-author">
+          <strong>Devon R.</strong>
+          <span>High School Sophomore</span>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"RJ actually cares. He broke down my footwork in a way nobody else had. Finally feel like I understand the spin and can actually control it."</blockquote>
+        <div class="testi-author">
+          <strong>Jordan M.</strong>
+          <span>High School Junior · Varsity Throws</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to <span>Throw Farther?</span></h2>
+  <p>Book your free intro call today — no commitment, just a conversation.</p>
+  <a href="#contact" class="btn-blue">Book a Free Call →</a>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <span class="section-tag">Get In Touch</span>
+    <h2 class="section-title">Let's Work Together</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>Have questions? Ready to book? Fill out the form and I'll get back to you within 24 hours.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📧</div>
+          <div>
+            <strong>Email</strong>
+            <span>coach@rjthrows.com</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📱</div>
+          <div>
+            <strong>Instagram</strong>
+            <span>@rjthrows</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕐</div>
+          <div>
+            <strong>Response Time</strong>
+            <span>Usually within 24 hours</span>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Alex" required />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Johnson" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="you@email.com" required />
+        </div>
+        <div class="form-group">
+          <label>I'm Interested In</label>
+          <select>
+            <option>1-on-1 Coaching Sessions</option>
+            <option>Video Analysis</option>
+            <option>Training Programs</option>
+            <option>Free Intro Call First</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell Me About Your Goals</label>
+          <textarea placeholder="Where are you at right now? What do you want to work on?" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <strong>RJ Throws</strong> · Coached by RJ Mercado · All Rights Reserved</p>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#1A7DC4';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+
+  // Smooth active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? '#5BB8F5' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
